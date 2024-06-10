@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler Schwalm | Professional Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Tyler Schwalm</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>My name is Tyler Schwalm. I am a Computer Science student at Lehigh University with a strong passion for
+                technology and coding. My technical skills include Python, C++, Java, and web design. I have experience
+                in developing projects and contributing to various professional and volunteer organizations.</p>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>Portfolio</h2>
+            <div class="grid">
+                <!-- Portfolio items -->
+                <div class="grid-item">Project 1</div>
+                <div class="grid-item">Project 2</div>
+                <div class="grid-item">Project 3</div>
+                <div class="grid-item">Project 4</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="blog">
+        <div class="container">
+            <h2>Blog</h2>
+            <div class="blog-posts">
+                <!-- Blog posts will be dynamically added here -->
+            </div>
+            <div class="add-post">
+                <h3>Add a New Post</h3>
+                <form id="blog-form">
+                    <label for="post-title">Title</label>
+                    <input type="text" id="post-title" name="post-title" required>
+                    <label for="post-content">Content</label>
+                    <textarea id="post-content" name="post-content" required></textarea>
+                    <label for="post-image">Image</label>
+                    <input type="file" id="post-image" name="post-image" accept="image/*">
+                    <button type="submit">Add Post</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <form action="mailto:tjs727@lehigh.edu" method="post" enctype="text/plain">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Tyler Schwalm. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('blog-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+            const image = document.getElementById('post-image').files[0];
+
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                const imageUrl = reader.result;
+                const post = document.createElement('div');
+                post.className = 'blog-post';
+
+                const postTitle = document.createElement('h3');
+                postTitle.textContent = title;
+                post.appendChild(postTitle);
+
+                const postContent = document.createElement('p');
+                postContent.textContent = content;
+                post.appendChild(postContent);
+
+                if (image) {
+                    const postImage = document.createElement('img');
+                    postImage.src = imageUrl;
+                    postImage.alt = title;
+                    post.appendChild(postImage);
+                }
+
+                document.querySelector('.blog-posts').appendChild(post);
+
+                document.getElementById('blog-form').reset();
+            };
+
+            if (image) {
+                reader.readAsDataURL(image);
+            } else {
+                reader.onloadend();
+            }
+        });
+    </script>
+</body>
+
+</html>
